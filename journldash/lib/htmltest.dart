@@ -51,7 +51,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-          SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
+          // SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
 
     Size size = MediaQuery.of(context).size;
     double width = size.width;
@@ -156,31 +156,34 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             // thehtml=articleProv.article.description;
                             return Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Container(
-                                  child:Padding(
-                                    padding:  EdgeInsets.fromLTRB(width*.05, width*.05, width*.05, width*.05,),
-                                    child: Html(
-                                      
-                                      shrinkWrap: true,
-                                      data: thehtml,  style: {
-                                    "p": Style(
-                                                                   
-                                        textAlign: TextAlign.justify,
-                                        direction: TextDirection.rtl),
-                                            "br": Style(
-display: Display.NONE,
-// margin: EdgeInsets.fromLTRB(0, -size.height*.007, 0, -size.height*.007)
-                                                                   
-                                      ),
-                                        "*":Style(
-                                                                                // lineHeight: LineHeight.em(1.5),
-
-                                             color: Colors.black,
-                                          fontFamily: 'Almari'
-                                        )
-                                                                  },),
-                                  )
-                                  ),
+                              child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Container(
+                                    child:Padding(
+                                      padding:  EdgeInsets.fromLTRB(width*.05, width*.05, width*.05, width*.05,),
+                                      child: Html(
+                                        
+                                        shrinkWrap: true,
+                                        data: thehtml,  style: {
+                                      "p": Style(
+                                                                     
+                                          textAlign: TextAlign.justify,
+                                          direction: TextDirection.rtl),
+                                              "br": Style(
+                              display: Display.block,
+                              // margin: EdgeInsets.fromLTRB(0, -size.height*.007, 0, -size.height*.007)
+                                                                     
+                                        ),
+                                          "*":Style(
+                                                                                  // lineHeight: LineHeight.em(1.5),
+                              
+                                               color: Colors.black,
+                                            fontFamily: 'Almari'
+                                          )
+                                                                    },),
+                                    )
+                                    ),
+                              ),
                             );
                           }),
                         ),

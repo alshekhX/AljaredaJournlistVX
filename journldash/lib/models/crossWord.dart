@@ -149,8 +149,7 @@ class _CrossWordsState extends State<CrossWords> {
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Stack(
-                  overflow: Overflow.visible,
-                  children: [
+                  clipBehavior: Clip.none, children: [
                     Container(
                       width: size.width * .4,
                       alignment: Alignment.center,
@@ -226,7 +225,7 @@ class _CrossWordsState extends State<CrossWords> {
             textAlign: TextAlign.center,
             readOnly: readable == null ? true : readable,
             maxLength: 1,
-            maxLengthEnforced: false,
+            maxLengthEnforcement: MaxLengthEnforcement.none,
             onChanged: (value) {
               setState(() {
                 if (controller.text.length > 1) {

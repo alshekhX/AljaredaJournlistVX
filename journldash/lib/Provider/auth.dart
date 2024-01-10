@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:journldash/utils/const.dart';
 
 import '../models/UserInfo.dart';
 
@@ -7,19 +8,10 @@ class Auth with ChangeNotifier {
   String ?token;
   UserInfo? user;
 
-  BaseOptions options = new BaseOptions(
-    baseUrl: "http://192.168.43.250:8000",
-    connectTimeout: 4000,
-    receiveTimeout: 4000,
-    contentType: 'application/json',
-    validateStatus: (status) {
-      return status! < 600;
-    },
-  );
 
   signIN(String email, String password) async {
     try {
-      var dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       final url = '/api/v1/auth/login';
 
       Response response = await dio.post(url, data: {
@@ -41,7 +33,7 @@ class Auth with ChangeNotifier {
   }
 
   getUserData() async {
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
 
     dio.options.headers["authorization"] = 'Bearer $token';
     Response response = await dio.post('/api/v1/auth/me');

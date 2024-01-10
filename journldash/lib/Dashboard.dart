@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:slide_digital_clock/slide_digital_clock.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 import 'dart:ui' as ui;
@@ -170,13 +169,13 @@ class _DashboardState extends State<Dashboard> {
                                     progressDialog.dismiss();
 
                                     await showAlertDialog(
-                                        context, '${res}', "fuck");
+                                      context, "خطأ في الخادم", "خطأ");
                                   }
                                 } catch (e) {
                                   progressDialog.dismiss();
                                   print(e);
                                   await showAlertDialog(
-                                      context, 'جاططت لمن ماف طريقة', "fuck");
+                                      context, "خطأ في الخادم", "خطأ");
                                 }
                               }
 

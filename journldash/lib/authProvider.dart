@@ -6,29 +6,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:journldash/utils/const.dart';
 import 'models/UserInfo.dart';
 
 class AuthProvider with ChangeNotifier {
   UserInfo? user;
   String? token;
 
-  BaseOptions options = new BaseOptions(
-    baseUrl: "http://192.168.43.250:8000",
-    connectTimeout: 8000,
-    receiveTimeout: 8000,
-      
-
-    contentType: 'application/json',
-    validateStatus: (status) {
-      return status! < 600;
-    },
-  );
-
   updateUserImage(XFile image) async {
     try {
       var imagByts;
 
-      Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       dio.options.headers["authorization"] = 'Bearer $token';
 
       if (image != null) {
@@ -59,7 +48,7 @@ class AuthProvider with ChangeNotifier {
 
   signIN(String email, String password) async {
     // try {
-      var dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       final url = '/api/v1/auth/login';
 
       Response response = await dio.post(url, data: {
@@ -85,7 +74,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   getUserData() async {
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
 
     dio.options.headers["authorization"] = 'Bearer $token';
     Response response = await dio.post('/api/v1/auth/me');
@@ -97,7 +86,7 @@ class AuthProvider with ChangeNotifier {
 
   updateUserDes(String des) async {
     try {
-      Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       dio.options.headers["authorization"] = 'Bearer $token';
 
       //Continue from here

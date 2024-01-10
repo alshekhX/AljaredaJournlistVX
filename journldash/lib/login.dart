@@ -179,8 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 1)),
-                        child: FlatButton(
-                          color: Colors.white,
+                        child: TextButton(
                           onPressed: () async {
                             CustomProgressDialog progressDialog =
                                 CustomProgressDialog(context, blur: 10);

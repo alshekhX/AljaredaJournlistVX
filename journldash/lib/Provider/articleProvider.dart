@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:convert';
 import 'dart:html' as html;
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:journldash/utils/const.dart';
 import '../models/Article.dart';
 import '../models/UserInfo.dart';
 
@@ -20,15 +18,6 @@ class ArticlePrvider with ChangeNotifier {
 
   List? journlistArticles;
 
-  BaseOptions options = new BaseOptions(
-    baseUrl: "http://192.168.43.250:8000",
-    connectTimeout: 8000,
-    receiveTimeout: 8000,
-    contentType: 'application/json',
-    validateStatus: (status) {
-      return status! < 600;
-    },
-  );
 
   _pickHtmFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -36,11 +25,6 @@ class ArticlePrvider with ChangeNotifier {
     if (result != null) {
       PlatformFile file = result.files.first;
 
-      print(file.name);
-      print(file.bytes);
-      print(file.size);
-      print(file.extension);
-      print(file.path);
       return file;
     } else {
       // User canceled the picker
@@ -74,7 +58,7 @@ class ArticlePrvider with ChangeNotifier {
       }
 
       var imagByts;
-      Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       dio.options.headers["authorization"] = 'Bearer $token';
       List<MultipartFile> assets = [];
 
@@ -143,7 +127,7 @@ class ArticlePrvider with ChangeNotifier {
         place = '';
       }
       var imagByts;
-      Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       dio.options.headers["authorization"] = 'Bearer $token';
 
       await _write(des, title);
@@ -190,7 +174,7 @@ class ArticlePrvider with ChangeNotifier {
 
   breakingNews(String headLine) async {
     try {
-      Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
       dio.options.headers["authorization"] = 'Bearer $token';
 
       var formData = {
@@ -213,7 +197,7 @@ class ArticlePrvider with ChangeNotifier {
   }
 
   getUserData() async {
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
 
     dio.options.headers["authorization"] = 'Bearer $token';
     Response response = await dio.post('/api/v1/auth/me');
@@ -228,7 +212,7 @@ class ArticlePrvider with ChangeNotifier {
     List<String> rowQes,
     List<String> columnQes,
   ) async {
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
 
     dio.options.headers["authorization"] = 'Bearer $token';
     Response response = await dio.post('/api/v1/games/crossword', data: {
@@ -257,7 +241,7 @@ class ArticlePrvider with ChangeNotifier {
     // var dayBefore = calendarTime.startOfToday.subtract(Duration(days: 1));
     // var dayEnd = calendarTime.endOfToday;
 
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
     dio.options.headers["authorization"] = 'Bearer $token';
     Response response = await dio.get("/api/v1/articles/journlistarticles",
         queryParameters: {'user': id});
@@ -275,7 +259,7 @@ class ArticlePrvider with ChangeNotifier {
   }
 
   Future<String> getHtml(ArticleModel articleModel) async {
-    Dio dio = Dio(options);
+      Dio dio = AljaredaConst().GetdioX();
 
     Response htmlPage =
         await dio.get('/uploads/htmlarticles/' + articleModel.description!);
